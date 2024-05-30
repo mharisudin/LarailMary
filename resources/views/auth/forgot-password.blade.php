@@ -1,25 +1,27 @@
 <x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
-    </div>
+        <x-mary-header title="{{ __('Forgot Password') }}" size="2xl"
+                       subtitle="{{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}" />
 
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form method="POST" action="{{ route('password.email') }}">
+    <form method="POST" action="{{ route('password.email') }}" class="mt-0">
         @csrf
 
         <!-- Email Address -->
         <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <x-mary-input label="{{ __('Email') }}" id="email" class="block mt-1 w-full"
+                          type="email" name="email" :value="old('email')" error-field="email"
+                          required autofocus />
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
+        <div class="flex items-center justify-between mt-4">
+            <x-mary-button link="{{ route('login') }}" class="dark:bg-black">
+                {{ __('Cancel') }}
+            </x-mary-button>
+            <x-mary-button class="btn-neutral" type="submit">
                 {{ __('Email Password Reset Link') }}
-            </x-primary-button>
+            </x-mary-button>
         </div>
     </form>
 </x-guest-layout>
